@@ -19,8 +19,8 @@ NAME_COLUMN = 0
 AGE_COLUMN = 1
 LANGUAGE_COLUMN = 2
 
-def trim_whitespace(input_rows):
-    for row in input_rows:
+def trim_whitespace(rows):
+    for row in rows:
         for i in range(0, len(row)):
             row[i] = row[i].strip()
 
@@ -55,6 +55,33 @@ def validate_and_sanitize_csv_rows(input_rows):
 
     return input_rows
 
+def sort_rows(rows, sort_flag, sort_order):
+    header_row = rows[0]
+    data_rows = rows[1:len(rows)]
+    
+    if (sort_flag == 'N'):
+        data_rows = sorted(data_rows, key = lambda row : row[NAME_COLUMN], reverse = bool(sort_order == 'D'))
+    elif (sort_flag == 'A'):
+        data_rows = sorted(data_rows, key = lambda row : row[AGE_COLUMN], reverse = bool(sort_order == 'D'))
+    elif (sort_flag == 'L'):
+        data_rows = sorted(data_rows, key = lambda row : row[LANGUAGE_COLUMN], reverse = bool(sort_order == 'D'))
+    else:
+        raise AssertionError("{} is not a valid sorting flag! Valid entries are {}".format(sort_flag, VALID_SORT_FLAGS))
+
+    return [header_row] + data_rows
+
+
+def pretty_print_rows(rows):
+    header_row = rows[0]
+    data_rows = rows[1:len(rows)]
+    padding = 20
+
+    formatted_header_row = "|".join(str(value).ljust(padding) for value in header_row)
+    print(formatted_header_row)
+    print("-" * len(formatted_header_row))
+    for row in data_rows:
+        print("|".join(str(value).ljust(padding) for value in row))
+
 
 file_path, sort_flag, sort_order = input("Enter the file path, column to sort by, and the sorting order: ").split()
 
@@ -66,5 +93,6 @@ validate_input_parameters(sort_flag, sort_order)
 with open(file_path, newline='') as input_file:
     input_rows = list(csv.reader(input_file))
 
-validate_and_sanitize_csv_rows(input_rows)
-
+rows = validate_and_sanitize_csv_rows(input_rows)
+rows = sort_rows(rows, sort_flag, sort_order)
+pretty_print_rows(rows)
