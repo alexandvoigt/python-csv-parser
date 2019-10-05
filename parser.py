@@ -58,7 +58,7 @@ def validate_and_sanitize_csv_rows(input_rows):
 def sort_rows(rows, sort_flag, sort_order):
     header_row = rows[0]
     data_rows = rows[1:len(rows)]
-    
+
     if (sort_flag == 'N'):
         data_rows = sorted(data_rows, key = lambda row : row[NAME_COLUMN], reverse = bool(sort_order == 'D'))
     elif (sort_flag == 'A'):
@@ -96,3 +96,4 @@ with open(file_path, newline='') as input_file:
 rows = validate_and_sanitize_csv_rows(input_rows)
 rows = sort_rows(rows, sort_flag, sort_order)
 pretty_print_rows(rows)
+
