@@ -1,15 +1,25 @@
 import csv
 
-valid_sort_flags = {'N', 'A', 'L'}
-valid_sort_order = {'A', 'D'}
+'''
+Sort Flags:
+- N = Name
+- A = Age
+- L = Number of known languages
+
+Sort Order:
+- A = Ascending
+- D = Descending
+'''
+VALID_SORT_FLAGS = {'N', 'A', 'L'}
+VALID_SORT_ORDER = {'A', 'D'}
 
 
 
 def validate_input_parameters(sort_flag, sort_order):
-    if sort_flag not in valid_sort_flags:
-        print ("{} is not a valid sorting flag! Valid entries are {}".format(sort_flag, valid_sort_flags))
-    if sort_order not in valid_sort_order:
-        print ("{} is not a valid sorting order! Valid entries are {}".format(sort_order, valid_sort_order))
+    if sort_flag not in VALID_SORT_FLAGS:
+        print ("{} is not a valid sorting flag! Valid entries are {}".format(sort_flag, VALID_SORT_FLAGS))
+    if sort_order not in VALID_SORT_ORDER:
+        print ("{} is not a valid sorting order! Valid entries are {}".format(sort_order, VALID_SORT_ORDER))
 
 
 
